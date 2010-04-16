@@ -1,0 +1,3 @@
+export("PROMISE", "avg.abs.genestat", "jung.rstat", "spearman.rstat", "promise.genestat")
+importFrom(stats, sd)
+

@@ -1,0 +1,127 @@
+%\VignetteIndexEntry{An introduction to PROMISE}
+%\VignetteDepends{Biobase,GSEABase}
+%\VignetteKeywords{Microarray Association Pattern}
+%\VignettePackage{PROMISE}
+\documentclass[]{article}
+
+\usepackage{times}
+\usepackage{hyperref}
+
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
+\title{An Introduction to \Rpackage{PROMISE}}
+\author{Stan Pounds, Xueyuan Cao}
+\date{April 12, 2010}
+
+\begin{document}
+
+\maketitle
+
+<<options,echo=FALSE>>=
+options(width=60)
+@ 
+
+\section{Introduction}
+
+PROMISE, PROjection onto the Most Interesting Statistical Evidence, is a general procedure to idenitify genomic features that 
+exhibit a specific biologically interesting pattern of association with multiple phenotypic endpoint variables. Biological knowledge of the endpoint variables is used to 
+define a vector that represents the biologically most intereting values for a set of association statistics. PROMISE performs one hypothesis test 
+for each genomic feature, and is flexible to accommodate various types of endpoints.  
+
+In this document, we describe how to perform PROMISE procdure using hypothetical example data sets provided with the package. 
+
+\section{Requirements}
+
+The PROMISE package depends on {\em Biobase} and {\em GSEABase}. The understanding of {\em ExpressionSet} and {\em GeneSetCollection} is a prerequiste to 
+perform the PROMISE procedure. Due to the internal handling of multiple endpoints, the consistency of {\em ExpressionSet} and {\em GeneSetCollection} is assumed.
+The detailed requirements are illustrated below.
+
+Load the PROMISE package and the example data sets: sampExprSet, sampGeneSet, and phPatt into R.
+
+<<Load PROMISE package and data>>=
+library(PROMISE)
+data(sampExprSet)
+data(sampGeneSet)
+data(phPatt)
+@
+
+The {\em ExpressionSet} should contain at least two components: {\em exprs} (array data) and {\em phenoData} (endpoint data).
+{\em exprs} is a data frame with column names representing the array identifiers (IDs) and row names representing the probe (genomic feature) IDs.
+{\em phenoData} is an {\em AnnotatedDataFrame} with column names representing the endpoint variables and row names representing array.
+The array IDs of {\em phenoData} and {\em exprs} should be matched.
+
+<<Extract ArrayData and Endpoint Data from sampExprSet>>=
+arrayData<-exprs(sampExprSet)
+ptData<- pData(phenoData(sampExprSet))
+head(arrayData[, 1:4])
+head(ptData)
+all(colnames(arrayData)==rownames(ptData))
+@
+
+The {\em GeneSetCollection} should be extractable in the following way. The probe IDs should be a subset of probe IDs of {\em exprs}. 
+<<Extract sampGeneSet to a data frame>>= 
+GS.data<-NULL
+for (i in 1:length(sampGeneSet)){
+    tt<-sampGeneSet[i][[1]]
+    this.name<-unlist(geneIds(tt))
+    this.set<-setName(tt)
+    this.data<- cbind.data.frame(featureID=as.character(this.name),
+             setID=rep(as.character(this.set), length(this.name)))
+    GS.data<-rbind.data.frame(GS.data, this.data)
+}
+sum(!is.element(GS.data[,1], rownames(arrayData)))==0
+@
+
+The association pattern definition is critical. The prior biological knowledge is requried to define the vector that represents the biologically most intereting values for statistics.
+In this hypothetical example, we are interested in identifying genomic features that are positively associated with active drug level, negatively associated with minimum disease, and positively 
+associated with survival. The three endpoints are represented in three rows as shown below:
+
+<<Display phPatt>>=
+phPatt
+@
+
+\section{PROMISE Analysis}
+As mentioned in section 2, the {\em ExpressionSet} and pattern definition are required by PROMISE procedure. 
+{\em GeneSetCollection} is required if a gene set enrichment analysis (GSEA) is to be performed within the PROMISE analysis.
+
+
+The code below performs a PROMISE analysis without GSEA. As mentioned above, {\em GeneSetCollection} is not needed. The gene set result is NULL.
+<<PROMISE without GSEA>>=
+test1<-PROMISE(exprSet=sampExprSet,
+             geneSet=NULL, 
+             promise.pattern=phPatt, 
+             strat.var=NULL, 
+             seed=13, 
+             nperms=100)
+@
+Gene level (genomic feature) result:
+<<Gene Level Result>>=
+gene.res<-test1$generes
+head(gene.res)
+@
+Gene set level result:
+<<Gene Set Result>>=
+set.res<-test1$setres
+head(set.res)
+@
+
+The code below performs a PROMISE analysis with GSEA. As mentioned above, {\em GeneSetCollection} is required. sampGeneSet, a {\em GeneSetCollection}, is passed as an arguement to PROMISE.
+<<PROMISE with GSEA>>=
+test2<-PROMISE(exprSet=sampExprSet,
+             geneSet=sampGeneSet,
+             promise.pattern=phPatt,
+             strat.var=NULL,
+             seed=13,
+             nperms=100)
+@
+Gene level (genomic feature) result:
+<<Gene Level Result>>=
+gene.res2<-test2$generes
+head(gene.res2)
+@
+Gene set level result:
+<<Gene Set Result>>=
+set.res2<-test2$setres
+head(set.res2)
+@
+\end{document}
