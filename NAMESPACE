@@ -1,3 +1,5 @@
 export("PROMISE", "avg.abs.genestat", "jung.rstat", "spearman.rstat", "promise.genestat")
-importFrom(stats, sd)
 
+importMethodsFrom(Biobase, exprs, pData, phenoData)
+importMethodsFrom(GSEABase, geneIds, setName)
+importFrom(stats, sd)

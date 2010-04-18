@@ -20,7 +20,7 @@ License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }
 The PROMISE (PRojection Onto the Most Interesting Statistical Evidence) is performed by calling function PROMISE.
-The array data and endpoint data are passed through an ExpressionSet; the gene set definition is passed throught a GeneSetCollection, 
+The array data and endpoint data are passed through an ExpressionSet; the gene set definition is passed through a GeneSetCollection, 
 and PROMISE definition is passed through a data frame. \emph{promise.genestat} and \emph{avg.abs.genestat} are called internally by PROMISE.
 Two R routines for calculating association statistics with individual endpoint variable(\emph{jung.rstat} and \emph{spearman.rstat}) are 
 provided in this version. Users could provide their own R routines written in a similar fashion. 

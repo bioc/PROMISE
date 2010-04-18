@@ -22,7 +22,7 @@ a vector of stratum to calculate stratified correlation statistics, default = NU
 }
 }
 \value{
-Return a vector of spearman rank correlation statistics.
+Return a vector of Spearman rank correlation statistics.
 }
 \references{
 Spearman C. (1904) The proof and measurement of association between two things. Amer. J. Psychol. 15: 72-101
@@ -44,7 +44,7 @@ Y <- exprs(sampExprSet)
 x <- pData(phenoData(sampExprSet))$drugLevel
 strat <- pData(phenoData(sampExprSet))$strat
 
-## Calculte spearman correlation statistics
+## Calculte Spearman correlation statistics
 test <- spearman.rstat(Y, x, strat = strat)
 }
 \keyword{univar}

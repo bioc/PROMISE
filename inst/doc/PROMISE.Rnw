@@ -23,12 +23,12 @@ options(width=60)
 
 \section{Introduction}
 
-PROMISE, PROjection onto the Most Interesting Statistical Evidence, is a general procedure to idenitify genomic features that 
+PROMISE, PROjection onto the Most Interesting Statistical Evidence, is a general procedure to identify genomic features that 
 exhibit a specific biologically interesting pattern of association with multiple phenotypic endpoint variables. Biological knowledge of the endpoint variables is used to 
-define a vector that represents the biologically most intereting values for a set of association statistics. PROMISE performs one hypothesis test 
+define a vector that represents the biologically most interesting values for a set of association statistics. PROMISE performs one hypothesis test 
 for each genomic feature, and is flexible to accommodate various types of endpoints.  
 
-In this document, we describe how to perform PROMISE procdure using hypothetical example data sets provided with the package. 
+In this document, we describe how to perform PROMISE procedure using hypothetical example data sets provided with the package. 
 
 \section{Requirements}
 
@@ -72,7 +72,7 @@ for (i in 1:length(sampGeneSet)){
 sum(!is.element(GS.data[,1], rownames(arrayData)))==0
 @
 
-The association pattern definition is critical. The prior biological knowledge is requried to define the vector that represents the biologically most intereting values for statistics.
+The association pattern definition is critical. The prior biological knowledge is required to define the vector that represents the biologically most interesting values for statistics.
 In this hypothetical example, we are interested in identifying genomic features that are positively associated with active drug level, negatively associated with minimum disease, and positively 
 associated with survival. The three endpoints are represented in three rows as shown below:
 
@@ -105,7 +105,7 @@ set.res<-test1$setres
 head(set.res)
 @
 
-The code below performs a PROMISE analysis with GSEA. As mentioned above, {\em GeneSetCollection} is required. sampGeneSet, a {\em GeneSetCollection}, is passed as an arguement to PROMISE.
+The code below performs a PROMISE analysis with GSEA. As mentioned above, {\em GeneSetCollection} is required. sampGeneSet, a {\em GeneSetCollection}, is passed as an argument to PROMISE.
 <<PROMISE with GSEA>>=
 test2<-PROMISE(exprSet=sampExprSet,
              geneSet=sampGeneSet,

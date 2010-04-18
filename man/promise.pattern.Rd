@@ -15,7 +15,7 @@ PROMISE pattern:  The column names must be \emph{stat.coef}, \emph{stat.func}, a
   Two R routines (\emph{jung.rstat} and \emph{spearman.rstat})are provided in current release. Users can provide their own routine accordingly.
    
 \emph{endpt.vars} column gives the name(s) of variable(s) in the endpoint data frame needed to compute each term of 
-  the PROMISE statistic. If more than one variables involve in one term, they should be seperated by a \bold{comma} without space. 
+  the PROMISE statistic. If more than one variables involve in one term, they should be separated by a \bold{comma} without space. 
 }
 
 \references{

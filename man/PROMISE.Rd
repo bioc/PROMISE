@@ -18,7 +18,7 @@ PROMISE(exprSet, geneSet=NULL, promise.pattern, strat.var=NULL, seed=13,
    Please refer to \emph{Biobase} for details on how to create such an ExpressionSet.}
   \item{geneSet}{
    a GeneSetCollection class with minimum of setName and geneIDs for each GeneSet. 
-   Please refer to \emph{GSEABase} for how to create such a GeneSetCollection class. The defult is NULL which will perform no gene set enrichment analysis.}  
+   Please refer to \emph{GSEABase} for how to create such a GeneSetCollection class. The default is NULL which will perform no gene set enrichment analysis.}  
   \item{promise.pattern}{
   a data frame defining the association pattern of interest. The column names must be \emph{stat.coef}, \emph{stat.func}, and \emph{endpt.vars}.
   The \emph{stat.coef} column gives the coefficients for combining the statistics of association of genomic variable with individual endpoint variable into the ultimate PROMISE statistic. 
@@ -39,7 +39,7 @@ PROMISE(exprSet, geneSet=NULL, promise.pattern, strat.var=NULL, seed=13,
   \item{$generes }{individual genes' test statistics and p-values for each individual endpoint 
   and PROMISE analysis.
   }
-  \item{$setres}{gene set's test statistics and p-vaules for each individual endpoint 
+  \item{$setres}{gene set's test statistics and p-values for each individual endpoint 
   and PROMISE analysis. If \emph{geneSet} is NULL, the value of this component is also \emph{NULL}. 
   }
 }
@@ -70,12 +70,12 @@ test1 <- PROMISE(exprSet=sampExprSet,
                  nperms=10)
              
 ## Perform PROMISE procedure with GSEA             
-res < -PROMISE(exprSet=sampExprSet,
-              geneSet=sampGeneSet, 
-              promise.pattern=phPatt, 
-              strat.var=NULL, 
-              seed=13, 
-              nperms=10)
+res <- PROMISE(exprSet=sampExprSet,
+               geneSet=sampGeneSet, 
+               promise.pattern=phPatt, 
+               strat.var=NULL, 
+               seed=13, 
+               nperms=10)
 }        
 \keyword{multivariate}
 
