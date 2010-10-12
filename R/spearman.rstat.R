@@ -36,6 +36,7 @@ function(Y,  x,  strat=NULL)
        # Now rank Y
        tR<-apply(this.Y,1,rank)
        R<-t(tR)
+       R[this.Y.miss]<-NA
        n<-rowSums(!this.Y.miss)
        R.mn<-rowMeans(R,na.rm=TRUE)
        R.dev<-(R-R.mn)
