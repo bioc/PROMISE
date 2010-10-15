@@ -1,7 +1,7 @@
 \name{PROMISE-package}
 \alias{PROMISE-package}
 \Rdversion{2.9.0}
-\docType{PROMISE}
+\docType{package}
 \title{
 PRojection Onto the Most Interesting Statistical Evidence
 }
