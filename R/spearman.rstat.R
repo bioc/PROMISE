@@ -26,7 +26,7 @@ function(Y,  x,  strat=NULL)
 
        r<-rank(this.x)
        r.mn<-mean(r)
-       r.sd<-sd(r)
+       r.sd<-sqrt(var(r, na.rm=T))
        r.cnt<-(r-r.mn)/r.sd
        r.cnt[r.sd==0]<-0
 

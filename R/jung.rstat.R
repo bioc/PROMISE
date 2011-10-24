@@ -40,11 +40,11 @@ function(x,time.cens,strat=NULL)
        	 I.Y<-diag(1,n)-Y
          s<-t(I.Y)%*%cens
          mn.s<-mean(s)
-         sd.s<-sd(s)
+         sd.s<-sqrt(apply(s, 2, var))
          s.cnt<-(s-mn.s)/sd.s
 
          mn.R<-(n+1)/2
-         sd.R<-sd(1:n)
+         sd.R<-sqrt(var(1:n))
          cnt.R<-(R-mn.R)/sd.R
 
          n<-rowSums(!miss.this.x)
