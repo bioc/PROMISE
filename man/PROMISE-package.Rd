@@ -14,8 +14,8 @@ with multiple endpoint variables
 \tabular{ll}{
 Package: \tab PROMISE\cr
 Type: \tab Package\cr
-Version: \tab 1.1.0\cr
-Date: \tab 2010-1-12\cr
+Version: \tab 1.7.0\cr
+Date: \tab 2012-3-16\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }

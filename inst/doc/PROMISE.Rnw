@@ -11,7 +11,7 @@
 
 \title{An Introduction to \Rpackage{PROMISE}}
 \author{Stan Pounds, Xueyuan Cao}
-\date{April 12, 2010}
+\date{March 16, 2012}
 
 \begin{document}
 
