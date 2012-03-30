@@ -4,7 +4,7 @@ Title: PRojection Onto the Most Interesting Statistical Evidence
 Description: A general tool to identify genomic features with a specific
   biologically interesting pattern of associations with multiple endpoint
   variables as described in Pounds et. al. (2009) Bioinformatics 25: 2013-2019
-Version: 1.7.0
+Version: 1.8.0
 Date: 2012-3-16
 Author: Stan Pounds <stanley.pounds@stjude.org>, Xueyuan Cao <xueyuan.cao@stjude.org>
 Maintainer: Stan Pounds <stanley.pounds@stjude.org>, Xueyuan Cao <xueyuan.cao@stjude.org>
