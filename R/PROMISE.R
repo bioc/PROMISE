@@ -6,6 +6,12 @@ function(exprSet, geneSet=NULL, promise.pattern, strat.var=NULL, seed=13, nperms
      ph.pattern<-promise.pattern
      endpt.data<-pData(phenoData(exprSet))
      array.data<-exprs(exprSet)
+     if (is.data.frame(array.data)) array.data<-as.matrix(array.data)
+     if (!is.numeric(array.data))
+     {
+        print ("ERROR: The array data is not numeric")
+       return()
+     } 
      if (!is.null(geneSet)) {
           geneset.data<-NULL
           for (i in 1:length(geneSet)){
@@ -64,6 +70,11 @@ function(exprSet, geneSet=NULL, promise.pattern, strat.var=NULL, seed=13, nperms
                                          strat.var), ","))) )
      phtype<-X[,endpt.endptcol]
      names(phtype)<-dimnames(endpt.data)[[2]][endpt.endptcol]
+     if (!is.numeric(phtype[, dimnames(phtype)[[2]]!=strat.var])&!is.data.frame(phtype[, dimnames(phtype)[[2]]!=strat.var]))
+     {
+        print ("ERROR: The clinical data is not numeric or data frame")
+       return()
+     } 
 
      if (is.vector(phtype)) phtype<-matrix(phtype,length(phtype),1)
      
