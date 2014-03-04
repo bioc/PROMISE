@@ -1,15 +1,18 @@
 Package: PROMISE
 Type: Package
 Title: PRojection Onto the Most Interesting Statistical Evidence
-Description: A general tool to identify genomic features with a specific
-  biologically interesting pattern of associations with multiple endpoint
-  variables as described in Pounds et. al. (2009) Bioinformatics 25: 2013-2019
-Version: 1.15.1
+Description: A general tool to identify genomic features with a
+        specific biologically interesting pattern of associations with
+        multiple endpoint variables as described in Pounds et. al.
+        (2009) Bioinformatics 25: 2013-2019
+Version: 1.15.2
 Date: 2012-3-16
-Author: Stan Pounds <stanley.pounds@stjude.org>, Xueyuan Cao <xueyuan.cao@stjude.org>
-Maintainer: Stan Pounds <stanley.pounds@stjude.org>, Xueyuan Cao <xueyuan.cao@stjude.org>
+Author: Stan Pounds <stanley.pounds@stjude.org>, Xueyuan Cao
+        <xueyuan.cao@stjude.org>
+Maintainer: Stan Pounds <stanley.pounds@stjude.org>, Xueyuan Cao
+        <xueyuan.cao@stjude.org>
 Depends: R (>= 2.11.0), Biobase, GSEABase
 Imports: Biobase, GSEABase, stats
 License: GPL (>= 2)
-biocViews: Microarray, OneChannel, Bioinformatics, MultipleComparisons, GeneExpression
-LazyLoad:yes
+LazyLoad: yes
+biocViews: Microarray, OneChannel, MultipleComparison, GeneExpression
