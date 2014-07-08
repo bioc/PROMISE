@@ -1,6 +1,6 @@
 \name{promise.genestat}
 \alias{promise.genestat}
-\Rdversion{2.9.0}
+\Rdversion{3.1.0}
 \title{
 Function to Calculate PROMISE Statistics
 }
@@ -8,7 +8,7 @@ Function to Calculate PROMISE Statistics
 a function to calculate individual gene and PROMISE statistics for a defined pattern of association
 }
 \usage{
-promise.genestat(Y, ph.data, ph.pattern, strat = NULL)
+promise.genestat(Y, ph.data, ph.pattern, strat = NULL, proj0=FALSE)
 }
 \arguments{
   \item{Y}{
@@ -22,7 +22,7 @@ promise.genestat(Y, ph.data, ph.pattern, strat = NULL)
   \item{ph.pattern}{
   a data frame with column headers: \emph{stat.coef}, \emph{stat.func}, \emph{endpt.vars}. The \emph{stat.coeff} column gives 
   the coefficients for combining the statistics of association of genomic variable with individual endpoint 
-  variable into the ultimate PROMISE statistic. The \emph{stat.func} column gives the name of the R routine that 
+  variable into the ultimate PROMISE statistic. If \emph{proj0=TRUE}, the \emph{stat.coeff} is ignored. The \emph{stat.func} column gives the name of the R routine that 
   computes the test statistic of association of the end point variables.
   \emph{jung.rstat} and \emph{spearman.rstat} are provided. Users can provide their own routines accordingly. 
   The \emph{endpt.vars} column gives the name(s) of variable(s) in  
@@ -30,12 +30,14 @@ promise.genestat(Y, ph.data, ph.pattern, strat = NULL)
   to separate multiple variables that correspond to the same term in the association pattern definition.       
   }
   \item{strat}{
-  a vector of stratum to calculate stratified statistics. The default is NULL.
+  a vector of stratum to calculate stratified statistics. The default is NULL.}
+  \item{proj0}{
+  indicator of whether projection to 0 is performed. It takes two valid values: TRUE or FALSE. If proj0=TRUE, PROMISE statistics is the sum of squares of individual statitics. The default is FALSE.
   }
 }
 
 \value{
- a matrix of statistics. Each row gives gene's statistics of each individual endpoint and the PROMISE analysis defined in \emph{ph.pattern}.
+ a matrix of statistics. Each row gives gene's statistics of each individual endpoint and the PROMISE statistics defined in \emph{ph.pattern}.
 }
 \references{
 Pounds S, Cheng C, Cao X, Crews KR, Plunkett W, Gandhi V, Rubnitz J, Ribeiro RC, Downing JR, and Lamba J (2009) 
@@ -58,6 +60,7 @@ Y <- exprs(sampExprSet)
 ph.data <- pData(phenoData(sampExprSet))
 
 test <- promise.genestat(Y, ph.data, phPatt, strat=ph.data[, 5])
+test2 <- promise.genestat(Y, ph.data, phPatt, strat=ph.data[, 5], proj0=TRUE)
 }
 \keyword{multivariate}
 

@@ -11,9 +11,10 @@
 
 \title{An Introduction to \Rpackage{PROMISE}}
 \author{Stan Pounds, Xueyuan Cao}
-\date{March 16, 2012}
+\date{June 24, 2014}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \maketitle
 
@@ -25,8 +26,7 @@ options(width=60)
 
 PROMISE, PROjection onto the Most Interesting Statistical Evidence, is a general procedure to identify genomic features that 
 exhibit a specific biologically interesting pattern of association with multiple phenotypic endpoint variables. Biological knowledge of the endpoint variables is used to 
-define a vector that represents the biologically most interesting values for a set of association statistics. PROMISE performs one hypothesis test 
-for each genomic feature, and is flexible to accommodate various types of endpoints.  
+define a vector that represents the biologically most interesting values for a set of association statistics. If prior biological knowledge of the endpoint variables is not available, a projection to point 0 is performed. The PROMISE performs one hypothesis test for each genomic feature, and is flexible to accommodate various types of endpoints. In this update, we also incorporte a fast permutation based on negative binomial sampling strategy, in which further permuation for a gene will not be performed for a gene with fixed number of success achieved.
 
 In this document, we describe how to perform PROMISE procedure using hypothetical example data sets provided with the package. 
 
@@ -72,8 +72,7 @@ for (i in 1:length(sampGeneSet)){
 sum(!is.element(GS.data[,1], rownames(arrayData)))==0
 @
 
-The association pattern definition is critical. The prior biological knowledge is required to define the vector that represents the biologically most interesting values for statistics.
-In this hypothetical example, we are interested in identifying genomic features that are positively associated with active drug level, negatively associated with minimum disease, and positively 
+The association pattern definition is critical. The prior biological knowledge is required to define the vector that represents the biologically most interesting values for statistics. If prior biological knowledge of the endpoint variables cannot be assumed, an arbitrary  \emph{stat.coef} can be used as it will be ignored with \emph{proj0=TRUE}. In this hypothetical example, we are interested in identifying genomic features that are positively associated with active drug level, negatively associated with minimum disease, and positively 
 associated with survival. The three endpoints are represented in three rows as shown below:
 
 <<Display phPatt>>=
@@ -87,12 +86,15 @@ As mentioned in section 2, the {\em ExpressionSet} and pattern definition are re
 
 The code below performs a PROMISE analysis without GSEA. As mentioned above, {\em GeneSetCollection} is not needed. The gene set result is NULL.
 <<PROMISE without GSEA>>=
-test1<-PROMISE(exprSet=sampExprSet,
-             geneSet=NULL, 
-             promise.pattern=phPatt, 
-             strat.var=NULL, 
-             seed=13, 
-             nperms=100)
+test1 <- PROMISE(exprSet=sampExprSet,
+                 geneSet=NULL, 
+                 promise.pattern=phPatt, 
+                 strat.var=NULL,
+                 proj0=FALSE,
+                 nbperm=FALSE, 
+                 max.ntail=10,
+                 seed=13, 
+                 nperms=100)
 @
 Gene level (genomic feature) result:
 <<Gene Level Result>>=
@@ -105,14 +107,17 @@ set.res<-test1$setres
 head(set.res)
 @
 
-The code below performs a PROMISE analysis with GSEA. As mentioned above, {\em GeneSetCollection} is required. sampGeneSet, a {\em GeneSetCollection}, is passed as an argument to PROMISE.
+The code below performs a PROMISE analysis with GSEA and using fast permutation. As mentioned above, {\em GeneSetCollection} is required. sampGeneSet, a {\em GeneSetCollection}, is passed as an argument to PROMISE.
 <<PROMISE with GSEA>>=
-test2<-PROMISE(exprSet=sampExprSet,
-             geneSet=sampGeneSet,
-             promise.pattern=phPatt,
-             strat.var=NULL,
-             seed=13,
-             nperms=100)
+test2 <- PROMISE(exprSet=sampExprSet,
+                 geneSet=sampGeneSet, 
+                 promise.pattern=phPatt, 
+                 strat.var=NULL,
+                 proj0=FALSE,
+                 nbperm=TRUE,
+                 max.ntail=10,
+                 seed=13, 
+                 nperms=100)
 @
 Gene level (genomic feature) result:
 <<Gene Level Result>>=
@@ -124,4 +129,28 @@ Gene set level result:
 set.res2<-test2$setres
 head(set.res2)
 @
+
+The code below performs a PROMISE analysis with GSEA and using fast permutation without prior knowlege of the three endpoint variables (\emph{ proj0=TRUE}). As mentioned above, {\em GeneSetCollection} is required. sampGeneSet, a {\em GeneSetCollection}, is passed as an argument to PROMISE.
+<<PROMISE with GSEA>>=
+test3 <- PROMISE(exprSet=sampExprSet,
+                 geneSet=sampGeneSet, 
+                 promise.pattern=phPatt, 
+                 strat.var=NULL,
+                 proj0=TRUE,
+                 nbperm=TRUE,
+                 max.ntail=10,
+                 seed=13, 
+                 nperms=100)
+@
+Gene level (genomic feature) result:
+<<Gene Level Result>>=
+gene.res3<-test3$generes
+head(gene.res3)
+@
+Gene set level result:
+<<Gene Set Result>>=
+set.res3<-test3$setres
+head(set.res3)
+@
 \end{document}
+

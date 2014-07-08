@@ -1,6 +1,6 @@
 \name{PROMISE-package}
 \alias{PROMISE-package}
-\Rdversion{2.9.0}
+\Rdversion{3.1.0}
 \docType{package}
 \title{
 PRojection Onto the Most Interesting Statistical Evidence
@@ -14,8 +14,8 @@ with multiple endpoint variables
 \tabular{ll}{
 Package: \tab PROMISE\cr
 Type: \tab Package\cr
-Version: \tab 1.7.0\cr
-Date: \tab 2012-3-16\cr
+Version: \tab 1.17.0\cr
+Date: \tab 2014-6-24\cr
 License: \tab GPL (>=2)\cr
 LazyLoad: \tab yes\cr
 }
@@ -49,19 +49,25 @@ data(sampGeneSet)
 data(phPatt)
 
 ## Perform PROMISE procedure without GSEA
-test1<-PROMISE(exprSet=sampExprSet,
-             geneSet=NULL, 
-             promise.pattern=phPatt, 
-             strat.var=NULL, 
-             seed=13, 
-             nperms=10)
+test1 <- PROMISE(exprSet=sampExprSet,
+                 geneSet=NULL, 
+                 promise.pattern=phPatt, 
+                 strat.var=NULL,
+                 proj0=FALSE,
+                 nbperm=FALSE, 
+                 max.ntail=10,
+                 seed=13, 
+                 nperms=100)
              
-## Perform PROMISE procedure with GSEA             
-res<-PROMISE(exprSet=sampExprSet,
-             geneSet=sampGeneSet, 
-             promise.pattern=phPatt, 
-             strat.var=NULL, 
-             seed=13, 
-             nperms=10)
+## Perform PROMISE procedure with GSEA and using fast permuation              
+test2 <- PROMISE(exprSet=sampExprSet,
+                 geneSet=sampGeneSet, 
+                 promise.pattern=phPatt, 
+                 strat.var=NULL,
+                 proj0=TRUE,
+                 nbperm=TRUE, 
+                 max.ntail=10,
+                 seed=13, 
+                 nperms=100)
 }
 

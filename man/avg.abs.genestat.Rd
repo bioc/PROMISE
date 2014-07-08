@@ -1,6 +1,6 @@
 \name{avg.abs.genestat}
 \alias{avg.abs.genestat}
-\Rdversion{2.9.0}
+\Rdversion{3.1.0}
 \title{
 Function to Compute Gene Set Statistics
 }

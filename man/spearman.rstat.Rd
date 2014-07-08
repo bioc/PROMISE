@@ -1,5 +1,5 @@
 \name{spearman.rstat}
-\Rdversion{2.9.0}
+\Rdversion{3.1.0}
 \alias{spearman.rstat}
 \title{
 Function to Calculate Spearman Correlation Statistics

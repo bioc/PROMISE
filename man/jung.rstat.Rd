@@ -1,6 +1,6 @@
 \name{jung.rstat}
 \alias{jung.rstat}
-\Rdversion{2.9.0}
+\Rdversion{3.1.0}
 \title{Function to Compute Jung's Statistics }
 \description{
   Compute statistic that measures the correlation of many continuous variables with a censored time-to-event variable
